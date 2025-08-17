@@ -38,3 +38,12 @@
     group: "{{ custom_whoami.stdout }}"
     mode: '0644'
     force: false
+
+- name: Create empty fstab file
+  ansible.builtin.copy:
+    dest: "/etc/fstab"
+    content: ""
+    owner: "{{ custom_whoami.stdout }}"
+    group: "{{ custom_whoami.stdout }}"
+    mode: '0644'
+    force: false
