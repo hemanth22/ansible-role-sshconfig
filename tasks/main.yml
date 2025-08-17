@@ -1,0 +1,28 @@
+---
+- name: Get whoami of remote host
+  ansible.builtin.shell: whoami
+  register: custom_whoami
+
+- name: Create SSH directory
+  file:
+    path: "/home/{{ custom_whoami.stdout }}/.ssh"
+    state: directory
+    mode: '0700'
+
+- name: Create empty known_hosts file
+  file:
+    path: "/home/{{ custom_whoami.stdout }}/.ssh/known_hosts"
+    state: touch
+    mode: '0644'
+
+- name: Create empty authorized_keys file
+  file:
+    path: "/home/{{ custom_whoami.stdout }}/.ssh/authorized_keys"
+    state: touch
+    mode: '0644'
+
+- name: Create empty .bashrc file
+  file:
+    path: "/home/{{ custom_whoami.stdout }}/.bashrc"
+    state: touch
+    mode: '0644'
