@@ -2,6 +2,7 @@
 - name: Get whoami of remote host
   ansible.builtin.shell: whoami
   register: custom_whoami
+  tags: molecule-idempotence-notest
 
 - name: Create SSH directory
   ansible.builtin.file:
