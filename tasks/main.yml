@@ -4,25 +4,37 @@
   register: custom_whoami
 
 - name: Create SSH directory
-  file:
+  ansible.builtin.file:
     path: "/home/{{ custom_whoami.stdout }}/.ssh"
     state: directory
     mode: '0700'
+    owner: "{{ custom_whoami.stdout }}"
+    group: "{{ custom_whoami.stdout }}"
+
 
 - name: Create empty known_hosts file
-  file:
-    path: "/home/{{ custom_whoami.stdout }}/.ssh/known_hosts"
-    state: touch
+  ansible.builtin.copy:
+    dest: "/home/{{ custom_whoami.stdout }}/.ssh/known_hosts"
+    content: ""
+    owner: "{{ custom_whoami.stdout }}"
+    group: "{{ custom_whoami.stdout }}"
     mode: '0644'
+    force: false
 
 - name: Create empty authorized_keys file
-  file:
-    path: "/home/{{ custom_whoami.stdout }}/.ssh/authorized_keys"
-    state: touch
+  ansible.builtin.copy:
+    dest: "/home/{{ custom_whoami.stdout }}/.ssh/authorized_keys"
+    content: ""
+    owner: "{{ custom_whoami.stdout }}"
+    group: "{{ custom_whoami.stdout }}"
     mode: '0644'
+    force: false
 
 - name: Create empty .bashrc file
-  file:
-    path: "/home/{{ custom_whoami.stdout }}/.bashrc"
-    state: touch
+  ansible.builtin.copy:
+    dest: "/home/{{ custom_whoami.stdout }}/.bashrc"
+    content: ""
+    owner: "{{ custom_whoami.stdout }}"
+    group: "{{ custom_whoami.stdout }}"
     mode: '0644'
+    force: false
