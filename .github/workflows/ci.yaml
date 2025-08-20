@@ -75,4 +75,5 @@ jobs:
       - name: Upload Molecule test logs as artifact
         uses: actions/upload-artifact@v4.6.2
         with:
+          name: molecule-test-logs-${{ matrix.distro }}
           path: /tmp/molecule-test.log
