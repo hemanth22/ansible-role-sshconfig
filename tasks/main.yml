@@ -1,41 +1,37 @@
 ---
-- name: Get whoami of remote host
-  ansible.builtin.shell: whoami
-  register: custom_whoami
-
 - name: Create SSH directory
   ansible.builtin.file:
-    path: "/home/{{ custom_whoami.stdout }}/.ssh"
+    path: "/home/{{ ansible_user_id }}/.ssh"
     state: directory
     mode: '0700'
-    owner: "{{ custom_whoami.stdout }}"
-    group: "{{ custom_whoami.stdout }}"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
 
 
 - name: Create empty known_hosts file
   ansible.builtin.copy:
-    dest: "/home/{{ custom_whoami.stdout }}/.ssh/known_hosts"
+    dest: "/home/{{ ansible_user_id }}/.ssh/known_hosts"
     content: ""
-    owner: "{{ custom_whoami.stdout }}"
-    group: "{{ custom_whoami.stdout }}"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
     mode: '0644'
     force: false
 
 - name: Create empty authorized_keys file
   ansible.builtin.copy:
-    dest: "/home/{{ custom_whoami.stdout }}/.ssh/authorized_keys"
+    dest: "/home/{{ ansible_user_id }}/.ssh/authorized_keys"
     content: ""
-    owner: "{{ custom_whoami.stdout }}"
-    group: "{{ custom_whoami.stdout }}"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
     mode: '0644'
     force: false
 
 - name: Create empty .bashrc file
   ansible.builtin.copy:
-    dest: "/home/{{ custom_whoami.stdout }}/.bashrc"
+    dest: "/home/{{ ansible_user_id }}/.bashrc"
     content: ""
-    owner: "{{ custom_whoami.stdout }}"
-    group: "{{ custom_whoami.stdout }}"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
     mode: '0644'
     force: false
 
@@ -43,7 +39,7 @@
   ansible.builtin.copy:
     dest: "/etc/fstab"
     content: ""
-    owner: "{{ custom_whoami.stdout }}"
-    group: "{{ custom_whoami.stdout }}"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
     mode: '0644'
     force: false
